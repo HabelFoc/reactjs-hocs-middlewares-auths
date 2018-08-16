@@ -13,7 +13,7 @@ const userSchema = new Schema({
 });
 
 // create the modal class
-const userModal = mongoose.modal('user', userSchema); // modal name & our schema
+const userModal = mongoose.model('user', userSchema); // modal name & our schema
 
 // export the modal
 module.exports = userModal;

@@ -14,6 +14,7 @@ export default function({ dispatch }){
 		.then(response => {
 			// dispatch a new action, with new payload data
 			// while preserve the action type
+			console.log('dispatching...')
 			dispatch({ ...action, payload: response })
 		})
 		.catch(err => console.log('Promise Catch Error:',err))

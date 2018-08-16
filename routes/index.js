@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const AddUserController = require('../controllers/add_user');
 
 
 	// @Route 	'/'
@@ -10,6 +11,11 @@ const router = express.Router();
 			msg: 'api req success:getting users...'
 		});
 	});
+
+
+	// @Route 	'/adduser'
+	// @desc 	Adds user to database
+	router.post('/adduser', AddUserController.AddUser);
 
 
 

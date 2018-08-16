@@ -1,5 +1,23 @@
-import { TOGGLE_AUTH, FETCH_EMAILS } from './types';
+import { TOGGLE_AUTH, FETCH_EMAILS, ADD_USER } from './types';
 import axios from 'axios';
+
+
+export const addUser = (user, callback) => {
+
+	// start storing user in database
+	const userResponse = axios
+							.post('http://localhost:3030/api/adduser', { ...user })
+							.then(res => { 
+								callback(res.data.msg); 
+								console.log(res.data);
+							});
+
+
+	return {
+		type: ADD_USER,
+		payload: userResponse
+	}
+}
 
 export const toggleAuthentication = (authState) => {
 	return {
@@ -9,24 +27,7 @@ export const toggleAuthentication = (authState) => {
 }
 
 
-const dummyEmails = [
-	{
-		id:1,	
-		username: 'HabelFoc',
-		company: 'FocDev.com',
-		email: 'focdev@gmail.com'
-	},
-	{
-		id:2,
-		username: 'Steve vie',
-		company: 'Micro.net',
-		email: 'micronet@gmail.com'
-	}
-]
-
-//
-
-let externalEmails = null;
+// let externalEmails = null;
 
 export const fetchEmails = (callActionAgain) => {
 

@@ -11,9 +11,9 @@ class Resources extends Component {
 		
 		axios({
 			method: 'get',
-			url: 'http://localhost:3030/api/users'
+			url: 'http://localhost:3030/api'
 		})
-		.then(res => console.log(res))
+		.then(res => console.log(res.data))
 		.catch(err => console.log('ERROR: Axios Failed:',err))
 	}
 

@@ -6,6 +6,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 
 
+
 // Connect MongoDB
 const db = require('./config/keys').mongoURI;
 mongoose
@@ -17,12 +18,10 @@ mongoose
 
 /* All Middlewares Stuff Setup */
 // allow CORS
-const corsOptions = {
-	origin: 'http://localhost:3030',
-	optionsSuccessStatus: 200
-};
 app.use(function(req, res, next) {
-  cors(corsOptions);
+  	res.append('Access-Control-Allow-Origin', ['*']);
+	res.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+	res.append('Access-Control-Allow-Headers', 'Content-Type');
   next();
 });
 // logging framework middlewares (debugging purposes)
@@ -32,9 +31,8 @@ app.use(express.json());
 
 
 
-
 /* Routing */
-app.use('/api/users', require('./routes'));
+app.use('/api', require('./routes'));
 
 // if in production use this routing
 if(process.env.NODE === 'production'){
@@ -45,7 +43,6 @@ if(process.env.NODE === 'production'){
 		res.sendFile(path.join(__dirname, '/client/dist/index.html'))
 	})
 }
-
 
 
 
