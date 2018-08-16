@@ -11,3 +11,6 @@ dist
 
 package-lock.json
 yarn.lock
+
+# config
+keys.js
