@@ -18,9 +18,6 @@ export default function({ dispatch }){
 			dispatch({ ...action, payload: response })
 		})
 		.catch(err => { 
-			setTimeout(() => { 
-				dispatch({...action}); 
-			}, 3000);
 			console.log('Promise Catch Error:',err); 
 		})
 

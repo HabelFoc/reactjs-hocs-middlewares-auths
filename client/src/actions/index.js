@@ -1,5 +1,21 @@
-import { TOGGLE_AUTH, FETCH_USERS, ADD_USER } from './types';
+import { TOGGLE_AUTH, FETCH_USERS, ADD_USER, DELETE_USER } from './types';
 import axios from 'axios';
+
+
+export const deleteUser = (userId, callback) => {
+
+	const deleteUserResponse = axios
+	.delete(`http://localhost:3030/api/deleteuser/${userId}`)
+	.then(res => {
+		console.log(res.data)
+		callback();
+	})
+
+	return {
+		type: DELETE_USER,
+		payload: deleteUserResponse
+	}
+}
 
 
 // Adding New User
@@ -30,7 +46,7 @@ export const toggleAuthentication = (authState) => {
 
 
 // Fetching Emails
-export const fetchUsers = (callActionAgain) => {
+export const fetchUsers = () => {
 
 	
 	// const response = axios.get('https://jsonplaceholder.typicode.com/users')

@@ -2,7 +2,7 @@ const User = require('../models/user')
 
 
 // Handle Fetching Users
-module.exports.FetchEmails = (req, res, next) => {
+module.exports.FetchUsers = (req, res, next) => {
 
 	// Gets All User 
 	User.find({}, (err, users) => {
@@ -14,7 +14,6 @@ module.exports.FetchEmails = (req, res, next) => {
 
 
 		if(users){
-			console.log(users)
 			res.send(users);
 		}
 

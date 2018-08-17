@@ -4,11 +4,39 @@ import { connect } from 'react-redux';
 import Authentication from './authentication_hoc';
 
 class Users extends Component {
+	constructor(props){
+		super(props);
+
+		this.renderUser = this.renderUser.bind(this)
+		this.onModalConfirm = this.onModalConfirm.bind(this)
+		this.onModalCancel = this.onModalCancel.bind(this)
+
+		this.state = {
+			modal: false,
+			toDeleteUser: ''
+		}
+	}
 
 	componentWillMount(){
-		// fetch emails & pass callback (calling an action again)
-		this.props.fetchUsers(() => { this.props.fetchUsers(() => console.log('fetching successful')) } );
+		// fetch users data
+		this.props.fetchUsers();
 	}
+
+	onModalConfirm(){
+		this.setState({ modal: false })
+		// performing deleting user from database
+		// upon successful, request fetching users again and re-render
+		this.props.deleteUser(this.state.toDeleteUser, () => { this.props.fetchUsers() });
+	}
+
+	onModalCancel(){
+		this.setState({ modal: false })
+	}
+
+	handleDeleteUser(userId){
+		this.setState({ modal: true, toDeleteUser: userId })
+	}
+
 
 	renderUser(user){
 		const company = (user.website !== undefined) ? user.website:user.company;
@@ -17,12 +45,21 @@ class Users extends Component {
 				<div className="card-content">
 					<div className="media">
 						<div className="media-left">
-							<div className="media-content">
-								<p className="title is-4">{user.username}</p>
-								<p className="title is-4">{company}</p>
-								<a href="javascript:void(0)">{user.email}</a>
+							<div className="content">
+								<div className="media-content">
+									<p className="title is-4">Username: {user.username}</p>
+									<p className="title is-4">Company: {company}</p>
+									<a href="javascript:void(0)">Email: {user.email}</a>
+								</div>
 							</div>
+
+						<div className="card-footer">
+							<a className="card-footer-item button is-danger" onClick={this.handleDeleteUser.bind(this, user._id)}>Delete</a>
 						</div>
+
+						</div>
+
+						
 					</div>
 				</div>
 			</div>
@@ -32,7 +69,26 @@ class Users extends Component {
 	render() {
 		return (
 			<div className="section container">
-				{this.props.users.map(this.renderUser)}							
+				{this.props.users.map(this.renderUser)}
+				<div className={(this.state.modal) ? 'modal is-active':'modal'}>
+
+				  <div className="modal-background"></div>
+
+				  	<div className="modal-content">
+				  		<div className="modal-card">
+					   	<header className="modal-card-head has-text-centered">
+					   		<p className="modal-card-title has-text-info">Are You Sure?</p>
+					   	</header>
+
+					   	<footer className="modal-card-foot">
+					      <button className="button is-success" onClick={this.onModalConfirm}>Confirm</button>
+					      <button className="button is-danger" onClick={this.onModalCancel}>Cancel</button>
+					  	</footer>
+					  </div>
+				  	</div>
+					  
+					  
+				</div>							
 			</div>
 		);
 	}

@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const AddUserController = require('../controllers/add_user');
-const FetchEmailsController = require('../controllers/fetch_emails');
+const FetchUsersController = require('../controllers/fetch_users');
+const DeleteUserController = require('../controllers/delete_user');
 
 
 	// @Route 	'/'
-	// @desc 	Get all users
+	// @Desc 	Get all users
 	router.get('/', (req, res) => {
 		res.json({
 			success:true,
@@ -15,13 +16,18 @@ const FetchEmailsController = require('../controllers/fetch_emails');
 
 
 	// @Route 	'/adduser'
-	// @desc 	Adds user to database
+	// @Desc 	Adds user to database
 	router.post('/adduser', AddUserController.AddUser);
 
 
 	// @Route 	'/emails'
-	// @Desc 	Get All User Data
-	router.get('/users', FetchEmailsController.FetchEmails);
+	// @Desc 	Get all user data
+	router.get('/users', FetchUsersController.FetchUsers);
+
+
+	// @Route 	'/deleteuser/:userid'
+	// @Desc 	Delete single user from database
+	router.delete('/deleteuser/:userid', DeleteUserController.DeleteUser);
 
 
 
