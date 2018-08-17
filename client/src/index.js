@@ -7,7 +7,7 @@ import App from './components/App';
 import reducers from './reducers';
 import Header from './components/Header';
 import Resources from './components/Resources';
-import Emails from './components/Email_List';
+import Users from './components/Users';
 import AddUser from './components/Add_User';
 
 import '../style/style.css';
@@ -28,7 +28,7 @@ ReactDOM.render(
 		    		<Route exact path="/" component={App} />
 		    		<Route path="/resources" component={Resources} />
 		    		<Route path="/adduser" component={AddUser} />
-		    		<Route path="/emails" component={Emails} />
+		    		<Route path="/users" component={Users} />
 		    		<Route component={() => (<center><h1 className="title has-text-warning">Not Found</h1></center>)}/>
 		    	</Switch>
     		</div>

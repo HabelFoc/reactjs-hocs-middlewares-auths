@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const AddUserController = require('../controllers/add_user');
+const FetchEmailsController = require('../controllers/fetch_emails');
 
 
 	// @Route 	'/'
@@ -16,6 +17,11 @@ const AddUserController = require('../controllers/add_user');
 	// @Route 	'/adduser'
 	// @desc 	Adds user to database
 	router.post('/adduser', AddUserController.AddUser);
+
+
+	// @Route 	'/emails'
+	// @Desc 	Get All User Data
+	router.get('/users', FetchEmailsController.FetchEmails);
 
 
 

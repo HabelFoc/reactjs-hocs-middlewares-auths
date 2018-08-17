@@ -10,9 +10,6 @@ export default function(ComposedComponent){
 
 			if(!this.props.auth_state){ this.props.history.push('/?error=PleaseLogin') }
 
-			// fetch emails & pass callback (calling an action again)
-			this.props.fetchEmails(() => { this.props.fetchEmails(() => console.log('fetching successful')) } );
-
 		}
 
 		componentWillUpdate(nextProps){ // 'nextProps'  is returning the app state
@@ -25,6 +22,7 @@ export default function(ComposedComponent){
 	}
 
 	function mapStateToProps(state){
+		console.log('App State: ',state)
 		return {...state};
 	}
 

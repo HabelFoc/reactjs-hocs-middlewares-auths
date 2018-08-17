@@ -63,7 +63,7 @@ class Header extends Component {
 						<Link className="button is-primary is-outlined" to="/adduser">Add User</Link>
 					</div>
 					<div className="navbar-item">
-						<Link className="button is-primary is-outlined" to="/emails">Emails</Link>
+						<Link className="button is-primary is-outlined" to="/users">Users</Link>
 					</div>
 				</div>
 				<div className="navbar-end">

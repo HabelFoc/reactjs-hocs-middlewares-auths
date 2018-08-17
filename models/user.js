@@ -4,16 +4,21 @@ const Schema = mongoose.Schema;
 
 // define our modal
 const userSchema = new Schema({
+	username: {
+		type: String
+	},
 	email: {
 		type: String,
 		unique: true,
 		lowercase: true
 	},
-	password: String
+	company: {
+		type: String
+	}
 });
 
-// create the modal class
-const userModal = mongoose.model('user', userSchema); // modal name & our schema
+// create the model class
+const user = mongoose.model('user', userSchema); // model name & our schema
 
-// export the modal
-module.exports = userModal;
+// export the model
+module.exports = user;

@@ -1,15 +1,19 @@
 import React, { Component } from 'react';
-import { fetchEmails } from '../actions';
 import { connect } from 'react-redux';
 
 import Authentication from './authentication_hoc';
 
-class EmailList extends Component {
+class Users extends Component {
+
+	componentWillMount(){
+		// fetch emails & pass callback (calling an action again)
+		this.props.fetchUsers(() => { this.props.fetchUsers(() => console.log('fetching successful')) } );
+	}
 
 	renderUser(user){
 		const company = (user.website !== undefined) ? user.website:user.company;
 		return (
-			<div className="card" key={user.id}>
+			<div className="card" key={user._id}>
 				<div className="card-content">
 					<div className="media">
 						<div className="media-left">
@@ -28,11 +32,11 @@ class EmailList extends Component {
 	render() {
 		return (
 			<div className="section container">
-				{this.props.email_list.map(this.renderUser)}							
+				{this.props.users.map(this.renderUser)}							
 			</div>
 		);
 	}
 }
 
 
-export default Authentication(EmailList);
+export default Authentication(Users);

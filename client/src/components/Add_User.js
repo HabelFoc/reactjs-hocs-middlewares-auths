@@ -20,9 +20,8 @@ class AddUser extends Component {
 
 	handleSubmit(e){
 		e.preventDefault();
-		console.log('form state is:',this.state);
-		// call action creator
-		// then, send to database
+		// sent to database
+		// upon success, redirect to home page
 		this.props.addUser({
 			...this.state
 		}, (msg) => { this.props.history.push(`/?msg=${msg}`) })
@@ -31,11 +30,6 @@ class AddUser extends Component {
 
 
 	render() {
-		if(this.props.users.hasOwnProperty('username')){ 
-			console.log(this.props.users) 
-		}else{
-			console.log('no users reducer flowing...')
-		}
 		return(
 			<div className="container">
 				<div className="section">
