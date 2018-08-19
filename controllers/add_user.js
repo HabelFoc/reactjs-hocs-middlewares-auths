@@ -1,11 +1,18 @@
 const User = require('../models/user'); // get mongoose instance model
 const Bcrypt = require('bcrypt');
+const jwt = require('jwt-simple');
+const config = require('../config/keys');
 
 // Handle Add User Route
 module.exports.AddUser = (req, res, next) => {
 
 	// incoming user data
 	const { username, email, company, password } = req.body;
+
+	function tokenForUser(user){
+		const timestamp = new Date().getTime();
+		return jwt.encode({ sub: user._id, iat: timestamp }, config.jwtSecret);
+	}
 
 	// check if user exist,
 	// response error if user exist
@@ -41,7 +48,7 @@ module.exports.AddUser = (req, res, next) => {
 						return next(err) 
 					}
 
-					res.json({ success: true, msg: 'user_saved'});
+					res.json({ success: true, msg: 'user_saved', token: tokenForUser(user) });
 				})		
 
 			})

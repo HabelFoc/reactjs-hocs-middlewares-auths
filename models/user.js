@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const Bcrypt = require('bcrypt');
+
 
 // define our modal
 const userSchema = new Schema({
@@ -49,6 +49,7 @@ const userSchema = new Schema({
 
 // create the model class
 const user = mongoose.model('user', userSchema); // model name & our schema
+
 
 // export the model
 module.exports = user;
