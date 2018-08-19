@@ -10,10 +10,13 @@ module.exports.DeleteUser = (req, res, next) => {
 	User
 	.findOneAndRemove({ _id: userId })
 	.then((result) => {
-		res.json({
-			success: true,
-			msg: 'successful_deleted_user'
-		})
+		
+		if(result){
+			res.json({
+				success: true,
+				msg: 'successful_deleted_user'
+			})
+		}
 	});
 
 

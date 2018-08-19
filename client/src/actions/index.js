@@ -50,7 +50,7 @@ export const fetchUsers = () => {
 
 	
 	// const response = axios.get('https://jsonplaceholder.typicode.com/users')
-	const response = axios.get('http://localhost:3030/api/users')
+	const response = axios.get('api/users')
 
 	return {
 		type: FETCH_USERS,

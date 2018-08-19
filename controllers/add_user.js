@@ -1,11 +1,11 @@
 const User = require('../models/user'); // get mongoose instance model
-
+const Bcrypt = require('bcrypt');
 
 // Handle Add User Route
 module.exports.AddUser = (req, res, next) => {
 
 	// incoming user data
-	const { username, email, company } = req.body;
+	const { username, email, company, password } = req.body;
 
 	// check if user exist,
 	// response error if user exist
@@ -18,27 +18,36 @@ module.exports.AddUser = (req, res, next) => {
 			return res.json({ success: true, error: 'email already exist', msg: 'email_already_exist' })
 		}
 
-		// if user not exist, save to database
-		const newUser = new User({
-			username: username,
-			email: email,
-			company: company
+		/* if user not exist, start saving user to database */
+
+		// Ecrypt password
+		const saltRounds = 10; // Default value
+		Bcrypt.genSalt(saltRounds, function(err, salt){
+
+			Bcrypt.hash(password, salt, function(err, hashedPassword){
+				console.log(hashedPassword)
+				// Start user data to database
+				const newUser = new User({
+					username: username,
+					email: email,
+					company: company,
+					password: hashedPassword
+				})
+
+
+				// response to indicating user has successful stored on database
+				newUser.save((err, user) => {
+					if(err) { 
+						return next(err) 
+					}
+
+					res.json({ success: true, msg: 'user_saved'});
+				})		
+
+			})
+
 		})
 
-
-		// response to indicating user has successful stored on database
-		newUser.save((err, user) => {
-			if(err) { 
-				return next(err) 
-			}
-
-			res.json({ success: true, msg: 'user_saved'});
-		})		
-
-
 	})
-
-	
-
 
 }

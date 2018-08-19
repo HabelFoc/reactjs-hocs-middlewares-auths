@@ -8,7 +8,8 @@ class AddUser extends Component {
 	state = {
 		username: '',
 		email: '',
-		company: ''
+		company: '',
+		password: ''
 	};
 
 	handleOnChange(e){
@@ -21,7 +22,7 @@ class AddUser extends Component {
 	handleSubmit(e){
 		e.preventDefault();
 		// sent to database
-		// upon success, redirect to home page
+		// upon successful, redirect to home page
 		this.props.addUser({
 			...this.state
 		}, (msg) => { this.props.history.push(`/?msg=${msg}`) })
@@ -72,6 +73,20 @@ class AddUser extends Component {
 								</span>
 								<span className="icon is-small is-right">
 							      <i className="fas fa-check"></i>
+							    </span>
+							    <p className="help is-warning">This field is required</p>
+							</div>
+						</div>
+
+						<div className="field">
+							<label className="label">Password</label>
+							<div className="control has-icons-left has-icons-right">
+								<input onChange={this.handleOnChange.bind(this)} type="password" name="password" className="input is-danger is-medium" placeholder="password" required autoComplete="off" />
+								<span className="icon is-small is-left">
+							      <i className="fas fa-key"></i>
+							    </span>
+							    <span className="icon is-small is-right">
+							      <i className="fas fa-exclamation-triangle"></i>
 							    </span>
 							    <p className="help is-warning">This field is required</p>
 							</div>
