@@ -6,12 +6,11 @@ module.exports.AddUser = (req, res, next) => {
 
 	// incoming user data
 	const { username, email, company } = req.body;
-	console.log(req.body)
+
 	// check if user exist,
 	// response error if user exist
 	User.findOne({ email }, (err, user) => {
 		if(err){
-			console.log(err)
 			return next(err);
 		}
 
@@ -30,11 +29,9 @@ module.exports.AddUser = (req, res, next) => {
 		// response to indicating user has successful stored on database
 		newUser.save((err, user) => {
 			if(err) { 
-				console.log(err)
 				return next(err) 
 			}
 
-			console.log(user)
 			res.json({ success: true, msg: 'user_saved'});
 		})		
 

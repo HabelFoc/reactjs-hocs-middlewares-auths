@@ -1,23 +1,27 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+
+// Redux, React-Redux
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
-
-import App from './components/App';
 import reducers from './reducers';
+// Custom Redux Middleware
+import Async from './middlewares/async'; // fetch emails middleware 
+
+// Custom Components
+import App from './components/App';
 import Header from './components/Header';
 import Resources from './components/Resources';
 import Users from './components/Users';
 import AddUser from './components/Add_User';
 
+// Styles
 import '../style/style.css';
 
+// React Router (Navigation)
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-// my redux middleware
-import Async from './middlewares/async'; // fetch emails middleware 
-
-const createStoreWithMiddleware = applyMiddleware(Async)(createStore); // pass 'Async' for custom middleware
+const createStoreWithMiddleware = applyMiddleware(Async)(createStore);
 
 ReactDOM.render(
 	<Provider store={createStoreWithMiddleware(reducers)}>

@@ -7,11 +7,11 @@ import Authentication from './authentication_hoc';
 class Resources extends Component {
 
 	componentDidMount(){
+
 		// test my api
-		
 		axios({
 			method: 'get',
-			url: 'http://localhost:3030/api'
+			url: '/api'
 		})
 		.then(res => console.log(res.data))
 		.catch(err => console.log('ERROR: Axios Failed:',err))

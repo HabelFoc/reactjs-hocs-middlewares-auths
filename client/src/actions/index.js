@@ -5,7 +5,7 @@ import axios from 'axios';
 export const deleteUser = (userId, callback) => {
 
 	const deleteUserResponse = axios
-	.delete(`http://localhost:3030/api/deleteuser/${userId}`)
+	.delete(`/api/deleteuser/${userId}`)
 	.then(res => {
 		console.log(res.data)
 		callback();
@@ -23,7 +23,7 @@ export const addUser = (user, callback) => {
 
 	// start storing user in database
 	const userResponse = axios
-	.post('http://localhost:3030/api/adduser', { ...user })
+	.post('/api/adduser', { ...user })
 	.then(res => { 
 		callback(res.data.msg); 
 		console.log(res.data);

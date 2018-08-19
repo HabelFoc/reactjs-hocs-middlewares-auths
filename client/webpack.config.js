@@ -24,9 +24,11 @@ module.exports = {
     historyApiFallback: true,
     contentBase: './dist',
     watchOptions: {
-      aggregateTimeout: 300,
-      poll: 1000
-    }
+      aggregateTimeout: 500,
+      poll: 1000,
+      ignored: /node_modules/
+    },
+    proxy: { '/api': { target: 'http://[::1]:3030', secure: false } }
   },
   plugins: [
     new HTMLWebpackPlugin({

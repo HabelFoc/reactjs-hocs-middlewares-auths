@@ -8,7 +8,6 @@ module.exports.FetchUsers = (req, res, next) => {
 	User.find({}, (err, users) => {
 
 		if(err){
-			console.log(err);
 			return next(err);
 		}
 
