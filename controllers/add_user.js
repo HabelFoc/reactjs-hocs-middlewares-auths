@@ -22,7 +22,7 @@ module.exports.AddUser = (req, res, next) => {
 		}
 
 		if(user){
-			return res.json({ success: true, error: 'email already exist', msg: 'email_already_exist' })
+			return res.json({ success: true, error: 'email already exist', msg: 'Email_Already_Exist' })
 		}
 
 		/* if user not exist, start saving user to database */
@@ -48,7 +48,7 @@ module.exports.AddUser = (req, res, next) => {
 						return next(err) 
 					}
 
-					res.json({ success: true, msg: 'user_saved', token: tokenForUser(user) });
+					res.json({ success: true, msg: 'Sign_Up_Successfully', token: tokenForUser(user) });
 				})		
 
 			})

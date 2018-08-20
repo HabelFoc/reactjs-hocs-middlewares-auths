@@ -37,7 +37,7 @@ const requireSignIn = passport.authenticate('local', { session: false });
 
 	// @Route 	'/emails'
 	// @Desc 	Get all user data
-	router.get('/users', requireAuth, FetchUsersController.FetchUsers);
+	router.get('/users', FetchUsersController.FetchUsers);
 
 
 	// @Route 	'/deleteuser/:userid'
@@ -49,7 +49,7 @@ const requireSignIn = passport.authenticate('local', { session: false });
 	// @Desc 	SignIn User to get authorization
 	router.post('/signin', requireSignIn, (req, res, next) => {
 
-		res.send({ token: tokenForUser(req.user) })
+		res.json({ token: tokenForUser(req.user), msg: 'Successfully_Sign_In' });
 
 	});
 

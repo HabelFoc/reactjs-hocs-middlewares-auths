@@ -8,16 +8,16 @@ export default function(ComposedComponent){
 
 		componentWillMount(){
 
-			if(!this.props.auth_state){ this.props.history.push('/?error=PleaseLogin') }
+			if(!this.props.auth_state.authState){ this.props.history.push('/?msg=Required_Signing_In') }
 
 		}
 
 		componentWillUpdate(nextProps){ // 'nextProps'  is returning the app state
-			if(!nextProps.auth_state){ this.props.history.push('/?error=PleaseLogin') }
+			if(!nextProps.auth_state.authState){ this.props.history.push('/?msg=Required_Signing_In') }
 		}
 
 		render(){
-			return <ComposedComponent {...this.props} />;
+			return (this.props.auth_state.authState) ? <ComposedComponent {...this.props} />:false;
 		}
 	}
 

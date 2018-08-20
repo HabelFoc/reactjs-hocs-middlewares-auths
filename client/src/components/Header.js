@@ -6,11 +6,16 @@ import { Link } from 'react-router-dom';
 
 
 class Header extends Component {
-	state = {
-		navbarExpand: false
-	}
+	constructor(props){
+		super(props);
 
-	componentWillMount(){
+		// Binding context
+		this.signIn_SignOut_Button = this.signIn_SignOut_Button.bind(this);
+		this.signUpButton = this.signUpButton.bind(this);
+
+		this.state = {
+			navbarExpand: false
+		};
 	}
 
 	handleToggleAuth(authstate){
@@ -18,12 +23,23 @@ class Header extends Component {
 		this.props.toggleAuthentication(authstate);
 	}
 
-	loginButton(){
-		if(this.props.auth_state){
-			return <button className="button is-danger" onClick={this.handleToggleAuth.bind(this, false)}>Logout</button>;
+
+	signUpButton(){
+		if(!this.props.auth_state.authState){
+			return(
+				<div className="navbar-item">
+					<Link to="/adduser" className="button is-primary">Sign Up</Link>	
+				</div>
+			);
+		}
+	}
+
+	signIn_SignOut_Button(){
+		if(this.props.auth_state.authState){
+			return <button className="button is-danger" onClick={this.handleToggleAuth.bind(this, false)}>Sign Out</button>;
 		}
 
-		return <button className="button is-info" onClick={this.handleToggleAuth.bind(this, true)}>Login</button>;
+		return <Link to="/signin" className="button is-info">Sign In</Link>;
 	}
 
 
@@ -60,16 +76,14 @@ class Header extends Component {
 						<Link className="button is-primary is-outlined" to="/resources">Resources</Link>
 					</div>
 					<div className="navbar-item">
-						<Link className="button is-primary is-outlined" to="/adduser">Add User</Link>
-					</div>
-					<div className="navbar-item">
 						<Link className="button is-primary is-outlined" to="/users">Users</Link>
 					</div>
 				</div>
 				<div className="navbar-end">
 					<div className="navbar-item">
-						{this.loginButton()}
+						{this.signIn_SignOut_Button()}
 					</div>
+					{this.signUpButton()}
 				</div>
 			</div>
 			</div>

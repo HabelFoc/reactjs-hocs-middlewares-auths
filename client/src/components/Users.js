@@ -26,7 +26,10 @@ class Users extends Component {
 		this.setState({ modal: false })
 		// performing deleting user from database
 		// upon successful, request fetching users again and re-render
-		this.props.deleteUser(this.state.toDeleteUser, () => { this.props.fetchUsers() });
+		this.props.deleteUser(this.state.toDeleteUser, (msg) => { 
+			this.props.history.push(`/users/?msg=${msg}`)
+			this.props.fetchUsers(); 
+		});
 	}
 
 	onModalCancel(){

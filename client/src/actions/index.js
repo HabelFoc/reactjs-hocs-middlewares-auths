@@ -1,14 +1,32 @@
-import { TOGGLE_AUTH, FETCH_USERS, ADD_USER, DELETE_USER } from './types';
+import { TOGGLE_AUTH, FETCH_USERS, ADD_USER, DELETE_USER, SIGN_IN_USER } from './types';
 import axios from 'axios';
 
 
+export const userSignIn = (user, callback) => {
+
+	const sigInUserResponse = axios
+	.post('/api/signin', { ...user })
+	.then(res => {
+		console.log(res.data);
+		callback(res.data.msg);
+		return res;
+	})
+
+	return {
+		type: SIGN_IN_USER,
+		payload: sigInUserResponse
+	};
+}
+
+
+// Deleting Single User from Database
 export const deleteUser = (userId, callback) => {
 
 	const deleteUserResponse = axios
 	.delete(`/api/deleteuser/${userId}`)
 	.then(res => {
 		console.log(res.data)
-		callback();
+		callback(res.data.msg);
 	})
 
 	return {
@@ -48,9 +66,8 @@ export const toggleAuthentication = (authState) => {
 // Fetching Emails
 export const fetchUsers = () => {
 
-	
 	// const response = axios.get('https://jsonplaceholder.typicode.com/users')
-	const response = axios.get('api/users')
+	const response = axios.get('/api/users')
 
 	return {
 		type: FETCH_USERS,

@@ -15,6 +15,7 @@ export default function({ dispatch }){
 			// dispatch a new action, with new payload data
 			// while preserve the action type
 			console.log('dispatching...')
+			console.log(response)
 			dispatch({ ...action, payload: response })
 		})
 		.catch(err => { 

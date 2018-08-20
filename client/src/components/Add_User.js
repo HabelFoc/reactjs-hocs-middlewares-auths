@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Authentication from './authentication_hoc';
 
+import IsUserLoggedIn from './is_user_logged_in_hoc';
 import { Link } from 'react-router-dom';
 
 
@@ -46,7 +46,7 @@ class AddUser extends Component {
 							    <span className="icon is-small is-right">
 							      <i className="fas fa-exclamation-triangle"></i>
 							    </span>
-							    <p className="help is-warning">This field is required</p>
+							    <p className="help is-info">This field is required</p>
 							</div>
 						</div>
 						
@@ -60,7 +60,7 @@ class AddUser extends Component {
 							    <span className="icon is-small is-right">
 							      <i className="fas fa-check"></i>
 							    </span>
-							    <p className="help is-warning">This field is required</p>
+							    <p className="help is-info">This field is required</p>
 							</div>
 						</div>
 						
@@ -74,7 +74,7 @@ class AddUser extends Component {
 								<span className="icon is-small is-right">
 							      <i className="fas fa-check"></i>
 							    </span>
-							    <p className="help is-warning">This field is required</p>
+							    <p className="help is-info">This field is required</p>
 							</div>
 						</div>
 
@@ -88,7 +88,7 @@ class AddUser extends Component {
 							    <span className="icon is-small is-right">
 							      <i className="fas fa-exclamation-triangle"></i>
 							    </span>
-							    <p className="help is-warning">This field is required</p>
+							    <p className="help is-info">This field is required</p>
 							</div>
 						</div>
 						
@@ -109,4 +109,4 @@ class AddUser extends Component {
 }
 
 
-export default Authentication(AddUser);
+export default IsUserLoggedIn(AddUser);

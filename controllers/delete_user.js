@@ -14,7 +14,7 @@ module.exports.DeleteUser = (req, res, next) => {
 		if(result){
 			res.json({
 				success: true,
-				msg: 'successful_deleted_user'
+				msg: 'Delete_User_Success'
 			})
 		}
 	});

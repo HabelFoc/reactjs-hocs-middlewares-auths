@@ -14,6 +14,7 @@ import Header from './components/Header';
 import Resources from './components/Resources';
 import Users from './components/Users';
 import AddUser from './components/Add_User';
+import SignIn from './components/Sign_In';
 
 // Styles
 import '../style/style.css';
@@ -32,8 +33,9 @@ ReactDOM.render(
 		    		<Route exact path="/" component={App} />
 		    		<Route path="/resources" component={Resources} />
 		    		<Route path="/adduser" component={AddUser} />
+		    		<Route path="/signin" component={SignIn} />
 		    		<Route path="/users" component={Users} />
-		    		<Route component={() => (<center><h1 className="title has-text-warning">Not Found</h1></center>)}/>
+		    		<Route component={() => (<center class="section"><h1 className="title has-text-warning">Not Found</h1></center>)}/>
 		    	</Switch>
     		</div>
     	</BrowserRouter>

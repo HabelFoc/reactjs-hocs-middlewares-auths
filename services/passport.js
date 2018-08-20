@@ -13,7 +13,7 @@ const localLogin = new LocalStrategy(localOptions, (email, password, done) => {
 
 
 	// Verify email & password, 
-	// then call 'done' with this credentials,
+	// then call 'done' with a user object,
 	// Otherwise call 'done' with 'false'
 	User.findOne({ email }, function(err, user){
 
@@ -43,14 +43,14 @@ const localLogin = new LocalStrategy(localOptions, (email, password, done) => {
 
 // Setup JWT Strategy options
 const jwtOptions = {
-	jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+	jwtFromRequest: ExtractJwt.fromHeader('Authorization'),
 	secretOrKey: Config.jwtSecret
 };
 // Create JWT Strategy
 const jwtLogin = new JwtStrategy(jwtOptions, (payload, done) => {
 
-	// See if usr ID in the payload exist in our database,
-	// If so, call 'done' with payload a user object
+	// See if user ID in the payload exist in our database,
+	// If so, call 'done' with a user object
 	// If not, call 'done' without a user object
 	User.find({ _id: payload.sub }, (err, user) => {
 
