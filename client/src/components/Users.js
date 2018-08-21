@@ -72,7 +72,7 @@ class Users extends Component {
 	render() {
 		return (
 			<div className="section container">
-				{this.props.users.map(this.renderUser)}
+				{(this.props.users == undefined || this.props.users.length == 0) ? <div className="title has-text-danger">Loading...</div>:this.props.users.map(this.renderUser)}
 				<div className={(this.state.modal) ? 'modal is-active':'modal'}>
 
 				  <div className="modal-background"></div>

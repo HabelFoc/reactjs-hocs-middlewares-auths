@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { toggleAuthentication } from '../actions';
+import * as actionsCreator from '../actions';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -12,31 +12,38 @@ class Header extends Component {
 		// Binding context
 		this.signIn_SignOut_Button = this.signIn_SignOut_Button.bind(this);
 		this.signUpButton = this.signUpButton.bind(this);
+		this.handlSignOut = this.handlSignOut.bind(this);
+		this.handleBurger = this.handleBurger.bind(this);
 
 		this.state = {
 			navbarExpand: false
 		};
 	}
 
-	handleToggleAuth(authstate){
-		// changing app auth state
-		this.props.toggleAuthentication(authstate);
+	handlSignOut(authstate){
+
+		// call 'userSignOut()' user action
+		this.props.userSignOut((msg) => {
+			// call 'unAuthenticatedUser()' action to un-authenticated 
+			this.props.history.push(`/?msg=${msg}`)
+			this.props.unAuthenticatedUser();
+		});
 	}
 
 
 	signUpButton(){
-		if(!this.props.auth_state.authState){
+		if(!this.props.auth_state.authenticated){
 			return(
 				<div className="navbar-item">
-					<Link to="/adduser" className="button is-primary">Sign Up</Link>	
+					<Link to="/signup" className="button is-primary">Sign Up</Link>	
 				</div>
 			);
 		}
 	}
 
 	signIn_SignOut_Button(){
-		if(this.props.auth_state.authState){
-			return <button className="button is-danger" onClick={this.handleToggleAuth.bind(this, false)}>Sign Out</button>;
+		if(this.props.auth_state.authenticated){
+			return <button className="button is-danger" onClick={this.handlSignOut}>Sign Out</button>;
 		}
 
 		return <Link to="/signin" className="button is-info">Sign In</Link>;
@@ -59,7 +66,7 @@ class Header extends Component {
 			<div className="navbar-brand">
 				<Link className="navbar-item" to="/"><center><h3>MyApp</h3></center></Link>
 
-				<a role="button" className={(navbarExpand) ? 'navbar-burger is-active':'navbar-burger'} onClick={this.handleBurger.bind(this)} data-target="navMenu" aria-label="menu" aria-expanded="false">
+				<a role="button" className={(navbarExpand) ? 'navbar-burger is-active':'navbar-burger'} onClick={this.handleBurger} data-target="navMenu" aria-label="menu" aria-expanded="false">
 				  <span aria-hidden="true"></span>
 				  <span aria-hidden="true"></span>
 				  <span aria-hidden="true"></span>
@@ -98,4 +105,4 @@ function mapStateToProps({auth_state}){
 }
 
 
-export default connect(mapStateToProps, { toggleAuthentication })(Header);
+export default connect(mapStateToProps, { ...actionsCreator })(Header);

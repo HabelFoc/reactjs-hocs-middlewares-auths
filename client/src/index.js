@@ -13,7 +13,7 @@ import App from './components/App';
 import Header from './components/Header';
 import Resources from './components/Resources';
 import Users from './components/Users';
-import AddUser from './components/Add_User';
+import SignUp from './components/Sign_Up';
 import SignIn from './components/Sign_In';
 
 // Styles
@@ -28,14 +28,14 @@ ReactDOM.render(
 	<Provider store={createStoreWithMiddleware(reducers)}>
 		<BrowserRouter>
     		<div>
-	    		<Header />
+	    		<Route component={Header} />
 		    	<Switch>
 		    		<Route exact path="/" component={App} />
 		    		<Route path="/resources" component={Resources} />
-		    		<Route path="/adduser" component={AddUser} />
+		    		<Route path="/signup" component={SignUp} />
 		    		<Route path="/signin" component={SignIn} />
 		    		<Route path="/users" component={Users} />
-		    		<Route component={() => (<center class="section"><h1 className="title has-text-warning">Not Found</h1></center>)}/>
+		    		<Route component={() => (<center className="section"><h1 className="title has-text-warning">Not Found</h1></center>)}/>
 		    	</Switch>
     		</div>
     	</BrowserRouter>

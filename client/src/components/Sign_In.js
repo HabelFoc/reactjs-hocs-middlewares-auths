@@ -27,7 +27,7 @@ class SignIn extends Component {
 		// pass user form data,
 		// upon successful, redirect to home page
 		this.props.userSignIn({...this.state}, (msg) => { 
-			this.props.toggleAuthentication(true);
+			this.props.authenticatedUser();
 			this.props.history.push(`/?msg=${msg}`);
 		});
 	}

@@ -1,16 +1,15 @@
-import { TOGGLE_AUTH, SIGN_IN_USER } from '../actions/types';
+import { AUTH_USER, UNAUTH_USER } from '../actions/types';
 
 const initialState = {
-	authState: false,
-	token: ''
-}
+	authenticated: false
+};
 
 export default (state = initialState, action) => {
 	switch(action.type){
-		case TOGGLE_AUTH:
-			return { ...state, authState: action.payload };
-		case SIGN_IN_USER:
-			return { ...state, token: action.payload.data.token };
+		case AUTH_USER:
+			return { ...state, authenticated: action.payload };
+		case UNAUTH_USER:
+			return { ...state, authenticated: action.payload };
 		default:
 			return state;
 	}

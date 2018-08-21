@@ -8,16 +8,24 @@ export default function(ComposedComponent){
 
 		componentWillMount(){
 
-			if(!this.props.auth_state.authState){ this.props.history.push('/?msg=Required_Signing_In') }
+			if(!this.props.auth_state.authenticated){ 
+				this.props.checkUserLoggedStatus((msg) => {
+					if(msg.success === true){
+						this.props.authenticatedUser();
+					}else{
+						this.props.history.push(`/?msg=${msg}`)
+					}
+				});
+			}
 
 		}
 
 		componentWillUpdate(nextProps){ // 'nextProps'  is returning the app state
-			if(!nextProps.auth_state.authState){ this.props.history.push('/?msg=Required_Signing_In') }
+			if(!nextProps.auth_state.authenticated){ this.props.history.push('/?msg=Required_Signing_In') }
 		}
 
 		render(){
-			return (this.props.auth_state.authState) ? <ComposedComponent {...this.props} />:false;
+			return (this.props.auth_state.authenticated) ? <ComposedComponent {...this.props} />:false;
 		}
 	}
 

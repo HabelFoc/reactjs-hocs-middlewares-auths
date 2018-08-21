@@ -3,9 +3,12 @@ const router = express.Router();
 const AddUserController = require('../controllers/add_user');
 const FetchUsersController = require('../controllers/fetch_users');
 const DeleteUserController = require('../controllers/delete_user');
+const SignOutUserController = require('../controllers/sign_out');
 const passport = require('passport');
 const jwt = require('jwt-simple');
 const config = require('../config/keys');
+
+
 
 // Encode for JWT Token
 function tokenForUser(user){
@@ -37,7 +40,7 @@ const requireSignIn = passport.authenticate('local', { session: false });
 
 	// @Route 	'/emails'
 	// @Desc 	Get all user data
-	router.get('/users', FetchUsersController.FetchUsers);
+	router.get('/users', requireAuth, FetchUsersController.FetchUsers);
 
 
 	// @Route 	'/deleteuser/:userid'
@@ -50,6 +53,21 @@ const requireSignIn = passport.authenticate('local', { session: false });
 	router.post('/signin', requireSignIn, (req, res, next) => {
 
 		res.json({ token: tokenForUser(req.user), msg: 'Successfully_Sign_In' });
+
+	});
+
+
+	// @Route 	'/signout'
+	// @Desc 	Sigining out user from app
+	router.get('/signout', SignOutUserController.SignOutUser);
+
+
+	// @Route 	'/isauthenticated'
+	// @Desc 	Check whatever user logged in or not
+	// 			
+	router.get('/isauthenticated', requireAuth, (req, res) => {
+
+		res.json({ success: true, msg: 'User_Logged_In' })
 
 	});
 

@@ -4,7 +4,7 @@ import IsUserLoggedIn from './is_user_logged_in_hoc';
 import { Link } from 'react-router-dom';
 
 
-class AddUser extends Component {
+class SignUp extends Component {
 	state = {
 		username: '',
 		email: '',
@@ -23,9 +23,14 @@ class AddUser extends Component {
 		e.preventDefault();
 		// sent to database
 		// upon successful, redirect to home page
-		this.props.addUser({
+		this.props.signUp({
 			...this.state
-		}, (msg) => { this.props.history.push(`/?msg=${msg}`) })
+		}, (msg) => { 
+
+			// call 'authenticatedUser()' action to authenticated
+			this.props.authenticatedUser();
+			this.props.history.push(`/?msg=${msg}`) 
+		});
 	}
 
 
@@ -109,4 +114,4 @@ class AddUser extends Component {
 }
 
 
-export default IsUserLoggedIn(AddUser);
+export default IsUserLoggedIn(SignUp);

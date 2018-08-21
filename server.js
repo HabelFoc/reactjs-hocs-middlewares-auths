@@ -15,24 +15,31 @@ mongoose
 .catch(err => console.log('Error: MongoDB: ',err));
 
 
-
 /* All Middlewares Stuff Setup */
 // allow CORS
-app.use(function(req, res, next) {
-  	res.append('Access-Control-Allow-Origin', ['*']);
-	res.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-	res.append('Access-Control-Allow-Headers', 'Content-Type');
-  	next();
-});
+const whitelist = ['http://localhost:8080', 'http://example2.com']
+const corsOptionsDelegate = function (req, callback) {
+
+	const domainAllowed = /^(http){1}\:{1}(\/\/){1}(localhost){1}\:{1}(8080){1}\/*/g;
+
+	if (whitelist.indexOf(req.header('Origin')) !== -1) {
+		callback(null, true);
+	}else{
+		if(req.header('Referer').search(domainAllowed) !== -1){
+			callback(null, true);
+		}else{
+			callback(new Error('Origin Not Allowed'))
+		}
+	} 
+}
 // logging framework middlewares (debugging purposes)
 app.use(morgan('tiny'));
 // middlwares for handling/parses incoming json payload
 app.use(express.json());
 
 
-
 /* Routing */
-app.use('/api', require('./routes'));
+app.use('/api', cors(corsOptionsDelegate), require('./routes'));
 
 // if in production use this routing
 if(process.env.NODE === 'production'){
@@ -43,7 +50,6 @@ if(process.env.NODE === 'production'){
 		res.sendFile(path.join(__dirname, '/client/dist/index.html'))
 	})
 }
-
 
 
 // PORT

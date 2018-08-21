@@ -1,7 +1,24 @@
 import React, { Component } from 'react';
+import * as actionsCreator from '../actions';
+import { connect } from 'react-redux';
 
+class App extends Component {
 
-export default class App extends Component {
+	componentDidMount(){
+
+		// check auth status to access control
+		if(!this.props.auth_state.authenticated){
+
+			this.props.checkUserLoggedStatus((msg) => {
+				if (msg.success === true) { 
+					this.props.authenticatedUser();
+				}else{
+					this.props.history.push(`/?msg=${msg}`);
+				}
+			});
+		}
+	}
+
   render() {
   	const { location } = this.props;
   	const urlString = location.search+'\n';
@@ -12,7 +29,7 @@ export default class App extends Component {
 	       <div className="hero is-primary">
 	       		<div className="hero-body has-text-centered">
 	       			<h1 className="title">Home</h1>
-	       			{location.search.search(`/[msg, error]+/`) ? <span className="subtitle has-text-warning">
+	       			{location.search.search(`/[msg, error]+/`) ? <span className="subtitle has-text-dark">
 	       				{message.replace(/_/g, ' ')}
 	       			</span>:''}
 	       			
@@ -22,3 +39,11 @@ export default class App extends Component {
     );
   }
 }
+
+
+const mapStateToProps = ({auth_state}) => ({
+	auth_state
+})
+
+
+export default connect(mapStateToProps, { ...actionsCreator })(App);
