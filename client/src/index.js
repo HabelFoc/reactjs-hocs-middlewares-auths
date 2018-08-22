@@ -15,6 +15,7 @@ import Resources from './components/Resources';
 import Users from './components/Users';
 import SignUp from './components/Sign_Up';
 import SignIn from './components/Sign_In';
+import NotFound from './components/Not_Found';
 
 // Styles
 import '../style/style.css';
@@ -35,7 +36,7 @@ ReactDOM.render(
 		    		<Route path="/signup" component={SignUp} />
 		    		<Route path="/signin" component={SignIn} />
 		    		<Route path="/users" component={Users} />
-		    		<Route component={() => (<center className="section"><h1 className="title has-text-warning">Not Found</h1></center>)}/>
+		    		<Route component={NotFound} />
 		    	</Switch>
     		</div>
     	</BrowserRouter>
